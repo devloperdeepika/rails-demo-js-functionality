@@ -1,0 +1,63 @@
+<%= form_with model: article do |form| %>
+  <div>
+    <%= form.label :title %><br>
+    <%= form.text_field :title %>
+    <% article.errors.full_messages_for(:title).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+  <%= form.label :description %><br>
+  <%= form.text_area :description %><br>
+  <% article.errors.full_messages_for(:description).each do |message| %>
+    <div><%= message %></div>
+  <% end %>
+</div>
+
+  # <div>
+  #   <%= form.label :body %><br>
+  #   <%= form.text_area :body %><br>
+  #   <% article.errors.full_messages_for(:body).each do |message| %>
+  #     <div><%= message %></div>
+  #   <% end %>
+  # </div>
+
+  <div>
+    <%= form.label :list_items %><br>
+    <%= form.select :list_items, Record.all.collect { |r| [ r.item, r.item ] }, prompt: 'please select', include_blank: true %><br>
+    <% article.errors.full_messages_for(:list_items).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div></br>
+
+  <div>
+    <%= form.label :position %><br>
+    <%= form.select :position, Record.all.collect { |r| [ r.position_record, r.position_record ] }, prompt: 'please select', include_blank: true %><br>
+    <% article.errors.full_messages_for(:position).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div></br>
+  
+  <div>
+    <%= form.label "Roles" %><br>
+    <%= form.collection_check_boxes :roles, Role.pluck(:role_name), :to_s, :humanize, class: 'role-checkboxes' do |b| %>
+      <div class="checkbox">
+        <%= b.check_box %>
+        <%= b.label(class: 'role-checkbox-label') %>
+      </div>
+    <% end %>
+  </div><br>
+
+  <div>
+    <%= form.label :body %><br>
+    <%= form.select :body, Role.pluck(:role_name), :prompt => 'Select Default Role' %>
+  </div>
+
+  <div><br>
+    <%= form.submit %>
+  </div>
+<% end %></br>
+
+<li><%= link_to "Back", root_path %></li>
+
