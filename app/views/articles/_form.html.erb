@@ -41,17 +41,17 @@
   
   <div>
     <%= form.label "Roles" %><br>
-    <%= form.collection_check_boxes :roles, Role.pluck(:role_name), :to_s, :humanize, class: 'role-checkboxes' do |b| %>
+    <%= form.collection_check_boxes :roles, Role.pluck(:role_name), :to_s, :humanize, class: '' do |b| %>
       <div class="checkbox">
-        <%= b.check_box %>
-        <%= b.label(class: 'role-checkbox-label') %>
+        <%= b.check_box(class: 'role-checkboxes')%>
+        <%= b.label %>
       </div>
     <% end %>
   </div><br>
 
   <div>
     <%= form.label :body %><br>
-    <%= form.select :body, Role.pluck(:role_name), :prompt => 'Select Default Role' %>
+    <%= form.select :body, Role.pluck(:role_name), { prompt: 'Select Default Role' }, id: 'body-dropdown' %>
   </div>
 
   <div><br>

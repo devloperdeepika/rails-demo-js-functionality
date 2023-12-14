@@ -42,6 +42,11 @@ class ArticlesController < ApplicationController
     redirect_to root_path, status: :see_other
   end
 
+  def default_role
+    roles = Role.where(role_name: params[:selected_value]).select(:role_name, :id)
+    render json: roles
+  end
+
   private
     def article_params
       params.require(:article).permit(:title, :body, :description, :position, :list_items, :status)

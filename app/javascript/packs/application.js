@@ -12,6 +12,7 @@ require("@rails/ujs").start()
 require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
+require("jquery")
 
 import $ from 'jquery';
 
@@ -23,10 +24,8 @@ import $ from 'jquery';
 $(document).ready(function() {
   console.log('jQuery is ready!');
   $('.role-checkboxes').on('click', function() {
-    debugger
-    // updateDropdownValue();
+    updateDropdownValue();
   });
-});
 
 // document.addEventListener('turbolinks:load', function() {
 //   debugger
@@ -36,31 +35,31 @@ $(document).ready(function() {
 //     updateDropdownValue();
 //   });
 
-//   function updateDropdownValue() {
-//     debugger
-//     // let selectedCheckboxes = $('.role-checkboxes:checked').map(function() {
-//     //   return this.value;
-//     // }).get();
+  function updateDropdownValue() {
+    let selectedCheckboxes = $('.role-checkboxes:checked').map(function() {
+      return this.value;
+    }).get();
+    // let selectedCheckboxes = event.target.innerHTML
 
-//     // $.ajax({
-//     //   url: '/admin/accounts/default_role',
-//     //   data: { selected_value: selectedCheckboxes },
-//     //   type: 'GET',
-//     //   success: function(result){
-//     //     let business_type = $("#account_default_role_name")
+    $.ajax({
+      url: '/default_role',
+      data: { selected_value: selectedCheckboxes },
+      type: 'GET',
+      success: function(result){
+        let business_type = $("#body-dropdown")
 
-//     //     business_type.empty();
-//     //     if (result.length > 1) {
-//     //       business_type.append('<option value="">Please Select</option>');
-//     //     }
-
-//     //     result.forEach(function(item){
-//     //       business_type.append(`<option value=${item.id}>${item.name}</option>`);
-//     //     });
-//     //   }
-//     // });
-//   }
-// });
+        business_type.empty();
+        if (result.length > 1) {
+          business_type.append('<option value="">Please Select</option>');
+        }
+        
+        result.forEach(function(item){
+          business_type.append(`<option value=${item.role_name}>${item.role_name}</option>`);
+        });
+      }
+    });
+  }
+});
 
 
 
